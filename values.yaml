@@ -1,4 +1,5 @@
 fullnameOverride: keep-admin
+
 replicaCount: 1
 
 image:
@@ -10,14 +11,32 @@ service:
   type: ClusterIP
   port: 80
 
-# 컨테이너(앱)가 실제로 리슨하는 포트
+# 실제 컨테이너가 사용하는 포트 (Spring Boot 기본 8080)
 containerPort: 8080
 
-# CPU 노드에만 배치
+# ingress는 나중에 사용할 수 있도록 유지
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+# CPU 노드로만 스케줄링
 nodeSelector:
   node-role: cpu
 
 tolerations: []
+
 affinity: {}
+
 resources: {}
+
 env: {}
+
+autoscaling:
+  enabled: false
+
+serviceAccount:
+  create: false
+  name: ""
