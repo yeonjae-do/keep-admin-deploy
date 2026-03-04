@@ -26,6 +26,15 @@ env:
   - name: admin.password
     value: epa123!@#
 
+  - name: spring.datasource.url
+    value: "jdbc:log4jdbc:mysql://192.168.90.192:23306/epa?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true"
+  - name: spring.datasource.username
+    value: "epa"
+  - name: spring.datasource.password
+    value: "epa#2025"
+  - name: spring.datasource.driver-class-name
+    value: "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
+
   - name: TZ
     value: Asia/Seoul
 
