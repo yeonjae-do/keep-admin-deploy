@@ -11,19 +11,24 @@ service:
   type: ClusterIP
   port: 80
 
-# 실제 컨테이너 포트
 containerPort: 8080
 
-# Spring 환경변수
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: dev
+
   - name: api.ip
     value: http://192.168.90.192:18000
+
+  - name: admin.id
+    value: admin
+
+  - name: admin.password
+    value: epa123!@#
+
   - name: TZ
     value: Asia/Seoul
 
-# ingress는 추후 사용
 ingress:
   enabled: false
   className: ""
@@ -31,7 +36,6 @@ ingress:
   hosts: []
   tls: []
 
-# CPU 노드에만 스케줄링
 nodeSelector:
   node-role: cpu
 
