@@ -56,12 +56,11 @@ spec:
               containerPort: {{ .Values.containerPort }}
               protocol: TCP
 
-          # 여기 추가 (핵심)
+          # values.yaml의 env 사용
+          {{- if .Values.env }}
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: "dev"
-            - name: TZ
-              value: "Asia/Seoul"
+            {{- toYaml .Values.env | nindent 12 }}
+          {{- end }}
 
           {{- with .Values.livenessProbe }}
           livenessProbe:
