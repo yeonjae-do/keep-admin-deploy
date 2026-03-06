@@ -8,24 +8,21 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
+  nodePort: 31196
 
 containerPort: 8080
 
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: dev
-
   - name: api.ip
     value: http://192.168.90.192:18000
-
   - name: admin.id
     value: admin
-
   - name: admin.password
     value: epa123!@#
-
   - name: spring.datasource.url
     value: "jdbc:log4jdbc:mysql://192.168.90.192:23306/epa?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true"
   - name: spring.datasource.username
@@ -34,26 +31,27 @@ env:
     value: "epa#2025"
   - name: spring.datasource.driver-class-name
     value: "net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
-
   - name: TZ
     value: Asia/Seoul
 
+volumeMounts:
+  - name: config-volume
+    mountPath: /app/config
+
+volumes:
+  - name: config-volume
+    configMap:
+      name: keep-admin-config
+
 ingress:
   enabled: false
-  className: ""
-  annotations: {}
-  hosts: []
-  tls: []
 
 nodeSelector:
   node-role: cpu
 
 tolerations: []
-
 affinity: {}
-
 resources: {}
-
 autoscaling:
   enabled: false
 

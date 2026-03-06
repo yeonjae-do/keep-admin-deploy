@@ -4,6 +4,7 @@ metadata:
   name: {{ include "keep-admin.fullname" . }}
   labels:
     {{- include "keep-admin.labels" . | nindent 4 }}
+
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,5 +12,8 @@ spec:
       targetPort: {{ .Values.containerPort }}
       protocol: TCP
       name: http
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
   selector:
     {{- include "keep-admin.selectorLabels" . | nindent 4 }}
