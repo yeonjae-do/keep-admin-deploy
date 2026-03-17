@@ -3,9 +3,12 @@ fullnameOverride: keep-admin
 replicaCount: 1
 
 image:
-  repository: yeonjae0426/keep-admin
+  repository: 192.168.90.53/keep-admin/keep-admin
   tag: "1.0"
   pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: harbor-secret
 
 service:
   type: NodePort
