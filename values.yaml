@@ -11,9 +11,8 @@ imagePullSecrets:
   - name: harbor-secret
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 80
-  nodePort: 31196
 
 containerPort: 8080
 
@@ -47,14 +46,28 @@ volumes:
       name: keep-admin-config
 
 ingress:
-  enabled: false
+  enabled: true
+  className: nginx
+
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+
+  hosts:
+    - host: keep-admin.sweetk
+      paths:
+        - path: /
+          pathType: Prefix
+
+  tls: []
 
 nodeSelector:
   node-role: cpu
 
 tolerations: []
 affinity: {}
+
 resources: {}
+
 autoscaling:
   enabled: false
 
